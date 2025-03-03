@@ -97,7 +97,7 @@ const Login = () => {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="email">email</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   name = "email"
