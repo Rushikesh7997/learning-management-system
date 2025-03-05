@@ -57,14 +57,14 @@ export const login = async (req, res) =>{
         if(!user){
             return res.status(400).json({
                 success:false,
-                message:"Incorrect Email and Password"
+                message:"Incorrect Email or Password"
             })
         }
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if(!isPasswordMatch){
             return res.status(400).json({
                 success:false,
-                message:"Incorrect Email and Password"
+                message:"Incorrect Email or Password"
             })
         }
         // Jwt token - 
