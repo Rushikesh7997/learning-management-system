@@ -15,6 +15,7 @@ import {
   useLoginUserMutation,
   useRegisterUserMutation,
 } from "@/features/api/authApi";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   const [signupInput, setSignupInput] = useState({
@@ -32,7 +33,15 @@ const Login = () => {
       isSuccess: registerIsSuccess,
     },
   ] = useRegisterUserMutation();
-  const [loginUser] = useLoginUserMutation();
+  const [
+    loginUser,
+    {
+      data: loginData,
+      error: loginError,
+      isLoading: loginIsLoading,
+      isSuccess: loginIsSuccess,
+    },
+  ] = useLoginUserMutation();
 
   const changeInputHandler = (e, type) => {
     const { name, value } = e.target;
@@ -43,8 +52,10 @@ const Login = () => {
     }
   };
 
-  const handleRegistration = (type) => {
+  const handleRegistration =async (type) => {
     const inputData = type === "signup" ? signupInput : loginInput;
+    const action = type === "signup" ? registerUser : loginUser;
+    await action(inputData);
   };
 
   return (
@@ -98,8 +109,14 @@ const Login = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => handleRegistration("signup")}>
-                Signup
+              <Button  disabled={registerIsLoading} onClick={() => handleRegistration("signup")}>
+              {
+                  registerIsLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait
+                    </>
+                  ) : "Signup"
+                }
               </Button>
             </CardFooter>
           </Card>
@@ -137,7 +154,15 @@ const Login = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => handleRegistration("login")}>Login</Button>
+              <Button disabled={loginIsLoading} onClick={() => handleRegistration("login")}>
+                {
+                  loginIsLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait
+                    </>
+                  ) : "Login"
+                }
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
