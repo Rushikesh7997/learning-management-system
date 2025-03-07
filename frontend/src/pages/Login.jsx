@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +16,7 @@ import {
   useRegisterUserMutation,
 } from "@/features/api/authApi";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const Login = () => {
   const [signupInput, setSignupInput] = useState({
@@ -57,6 +58,21 @@ const Login = () => {
     const action = type === "signup" ? registerUser : loginUser;
     await action(inputData);
   };
+
+  useEffect(()=>{
+    if(registerIsSuccess && registerData){
+      toast.success(registerData.message || "Signup Successful.")
+    }
+    if(registerError){
+      toast.error(registerData.data.message || "Signup Failed.")
+    }
+    if(loginIsSuccess && loginData){
+      toast.success(loginData.message || "Login Successful.")
+    }
+    if(loginError){
+      toast.error(loginData.data.message || "Login Failed.")
+    }
+  },[loginIsLoading, registerIsLoading, loginData, registerData, loginError, registerError])
 
   return (
     <div className="flex items-center w-full justify-center">
