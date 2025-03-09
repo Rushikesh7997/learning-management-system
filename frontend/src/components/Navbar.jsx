@@ -1,5 +1,5 @@
 import React from "react";
-import { School } from "lucide-react";
+import { Menu, School } from "lucide-react";
 import { DarkMode } from "./DarkMode";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,7 +73,10 @@ export const Navbar = () => {
         </div>
       </div>
       {/* mobile device */}
+      <div className="flex md:hidden items-center justify-between px-4 h-full ">
+        <h1 className="font-extrabold text-2xl">E-Learning</h1>
         <MobileNavbar/>
+      </div>
     </div>
   );
 };
@@ -83,29 +86,22 @@ const MobileNavbar =()=>{
     return (
     <Sheet>
         <SheetTrigger asChild>
-            <Button variant="outline">Open</Button>
+            <Button size='icon' className="rounded-full bg-gray-200 hover:bg-gray-200" variant="outline">
+              <Menu/>
+            </Button>
         </SheetTrigger>
-        <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Edit profile</SheetTitle>
-              <SheetDescription>
-                  Make changes to your profile here. Click save when you're done.
-              </SheetDescription>
+        <SheetContent className="">
+            <SheetHeader className="flex flex-row items-center justify-between mt-4">
+              <SheetTitle>E-Learning</SheetTitle>
+              <DarkMode/>
             </SheetHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                  Name
-                  </Label>
-                  <Input id="name" value="Pedro name" className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="username" className="text-right">
-                  Username
-                  </Label>
-                  <Input id="username" value="@name" className="col-span-3" />
-              </div>
-            </div>
+            
+            <nav>
+              <li>My Learning</li>
+              <li>Profile</li>
+              <li>Log Out</li>
+            </nav>
+
             <SheetFooter>
               <SheetClose asChild>
                   <Button type="submit">Save changes</Button>
