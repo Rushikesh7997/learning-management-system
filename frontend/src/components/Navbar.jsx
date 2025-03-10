@@ -20,18 +20,16 @@ import {
     Sheet,
     SheetClose,
     SheetContent,
-    SheetDescription,
     SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 
 export const Navbar = () => {
-  const user = false;
+  const user = true;
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* desktop device */}
@@ -83,6 +81,7 @@ export const Navbar = () => {
 
 
 const MobileNavbar =()=>{
+    const role = "instructor"
     return (
     <Sheet>
         <SheetTrigger asChild>
@@ -90,23 +89,26 @@ const MobileNavbar =()=>{
               <Menu/>
             </Button>
         </SheetTrigger>
-        <SheetContent className="">
+        <SheetContent className="flex flex-col">
             <SheetHeader className="flex flex-row items-center justify-between mt-4">
-              <SheetTitle>E-Learning</SheetTitle>
+              <SheetTitle className="text-2xl font-extrabold">E-Learning</SheetTitle>
               <DarkMode/>
             </SheetHeader>
-            
-            <nav>
+            <Separator className="mr-2"/>
+            <nav className="flex flex-col space-y-4 ml-3">
               <li>My Learning</li>
               <li>Profile</li>
               <li>Log Out</li>
             </nav>
-
-            <SheetFooter>
-              <SheetClose asChild>
-                  <Button type="submit">Save changes</Button>
-              </SheetClose>
-            </SheetFooter>
+            {
+              role === "instructor" && (
+                <SheetFooter className="mt-1">
+                  <SheetClose asChild>
+                      <Button type="submit">Dashboard</Button>
+                  </SheetClose>
+                </SheetFooter>
+              )
+            }
         </SheetContent>
     </Sheet>
     )
