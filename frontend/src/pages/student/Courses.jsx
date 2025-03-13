@@ -15,7 +15,7 @@ export const Courses = () => {
               isLoading ? ( Array.from({length:8}).map((_,index) => (
                 <CourseSkeleton key={index}/>  
               ))) : (
-                courses.map((course,index)=> )
+                courses.map((course,index)=> <Course key={index}/>)
                )
             }
           </div>
