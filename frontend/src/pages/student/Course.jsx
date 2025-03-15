@@ -4,8 +4,6 @@ import { Badge } from "@/components/ui/badge"
 // import { Avatar, AvatarFallback } from '@radix-ui/react-avatar'
 import React from 'react'
 
-
-
 export const Course = () => {
   return (
     <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 pt-0 pb-3">
