@@ -35,12 +35,10 @@ export const register = async (req, res) =>{
         console.log(error)
         res.status(500).json({
             success:false,
-            message:"failed to register"
+            message:"Failed to Register"
         })
     }
 }
-
-
 
 // Login into registered account 
 
@@ -73,7 +71,49 @@ export const login = async (req, res) =>{
         console.log(error)
         res.status(500).json({
             success:false,
-            message:"Failed To Register"
+            message:"Failed to Login"
+        })
+    }
+}
+
+// Logout 
+
+export const logout = async (_,res) =>{
+    try {
+        return res.status(200).cookie("token","", {maxAge:0}).json({
+            message : "Logged Out Successfully.",
+            success : true,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success:false,
+            message:"Failed to Logout"
+        })
+    }
+}
+
+// User profile
+
+export const getUserProfile = async (req,res) =>{
+    try {
+        const userId = req.id;
+        const user = await User.findById(userId).select('-password');
+        if(!user){
+            return res.status(404).json({
+                message:"Profile not found",
+                success:false,
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            user
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success:false,
+            message:"Failed to Load User"
         })
     }
 }
