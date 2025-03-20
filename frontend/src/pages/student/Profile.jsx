@@ -11,9 +11,13 @@ import { useLoadUserQuery } from '@/features/api/authApi'
 export const Profile = () => {
 
   const {data, isLoading} = useLoadUserQuery();
-  console.log(data);
+  
   
   const enrolledCourses = [1];
+
+  if(isLoading) return <h1>Profile Loading...</h1>
+
+  console.log(data);
 
   return (
     <div className='max-w-xl mx-auto my-24 px-4 md:px-0 '>
