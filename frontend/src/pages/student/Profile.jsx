@@ -12,7 +12,6 @@ export const Profile = () => {
 
   const {data, isLoading} = useLoadUserQuery();
   
-  
   const enrolledCourses = [1];
 
   if(isLoading) return <h1>Profile Loading...</h1>
