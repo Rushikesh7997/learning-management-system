@@ -4,17 +4,43 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2 } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Course } from './Course'
-import { useLoadUserQuery } from '@/features/api/authApi'
+import { useLoadUserQuery, useUpdateUserMutation } from '@/features/api/authApi'
+import { toast } from 'sonner'
 
 export const Profile = () => {
 
-  const {data, isLoading} = useLoadUserQuery();
+  const [name, setName] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const {data, isLoading, refetch} = useLoadUserQuery();
+  const [updateUser, {data:updateUserData, isLoading:updateUserIsLoading, isError, error, isSuccess}] = useUpdateUserMutation();
   
+  const onChangeHandler = (e) =>{
+    const file = e.target.files?.[0];
+    if(file) setProfilePhoto(file);
+  }
+
+  const updateUserHandler = async() =>{
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("profilePhoto", profilePhoto);
+    await updateUser(formData);
+  }
+
+  useEffect(()=>{
+    if(isSuccess){
+      refetch();
+      toast.success(data.message || "Profile Updated")
+    }
+    if(isError){
+      toast.error(error.message || "Profile Not Updated")
+    }
+  },[error, updateUserData, isSuccess, isError])
+
   if(isLoading) return <h1>Profile Loading...</h1>
   
-  const { user } = data;
+  const {user} = data;
 
   return (
     <div className='max-w-xl mx-auto my-24 px-4 md:px-0 '>
@@ -59,19 +85,27 @@ export const Profile = () => {
                   <div className='grid gap-4 py-4'>
                       <div className='grid grid-cols-4 items-center gap-4'>
                         <Label>Name</Label>
-                        <Input type="text" placeholder="Name" className="col-span-3"/>
+                        <Input 
+                          type="text" 
+                          placeholder="Name" 
+                          className="col-span-3" 
+                          value={name}
+                          onChange = {(e)=>setName(e.target.value)}
+                        />
                       </div>
                       <div className='grid grid-cols-4 items-center gap-4'>
                         <Label>Profile Image</Label>
                         <Input type="file" 
-                        accept="image/*"
-                        className="col-span-3"/>
+                          accept="image/*"
+                          className="col-span-3"
+                          onChange={onChangeHandler}
+                        />
                       </div>
                   </div>
                 <DialogFooter>
-                  <Button disabled={isLoading}>
+                  <Button disabled={updateUserIsLoading} onClick={updateUserHandler}>
                     {
-                      isLoading ? (
+                      updateUserIsLoading ? (
                         <>
                           <Loader2 className='mr-2 h-4 w-4 animate-spin '/> Please wait
                         </>
