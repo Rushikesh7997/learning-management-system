@@ -26,3 +26,6 @@ export const createCourse = async (req, res) =>{
         })
     }
 }
+export const getAllAdminCourses = async (req, res) =>{
+    
+}
