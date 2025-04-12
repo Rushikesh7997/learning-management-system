@@ -42,7 +42,6 @@ export const Navbar = () => {
     await logoutUser();
   }
 
-  console.log(user);
 
   useEffect(()=>{
     if(isSuccess){
@@ -66,7 +65,7 @@ export const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar>
-                    <AvatarImage src={user?.photoUrl || "https://github.com/shadcn.png"} alt="@shadcn" />
+                    <AvatarImage src={user?.photoUrl || "https://github.com/shadcn.png"} alt="Profile Picture" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
