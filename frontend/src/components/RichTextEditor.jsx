@@ -1,13 +1,14 @@
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import React from 'react';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-export const RichTextEditor = () => {
 
-    const editor = useEditor({
-        extensions: [StarterKit],
-        content: '<p>Hello <strong>World</strong>!</p>',
-    });
+export const RichTextEditor = ({input, setInput}) => {
 
-    return <EditorContent editor={editor} />;
+    const handleChange = () =>{
+        setInput({...input, description:content});
+    }
+
+    return <ReactQuill theme="snow" value={input.description} onChange={handleChange} />;
+   
 }

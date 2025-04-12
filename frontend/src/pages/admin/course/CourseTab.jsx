@@ -9,11 +9,26 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useState } from "react";
 
 export const CourseTab = () => {
   
-    const isPublished = true;
+  const [input, setInput] = useState({
+    courseTitle:"",
+    subTitle:"",
+    description:"",
+    category:"",
+    courseLevel:"",
+    coursePrice:"",
+    courseThumbnail:"",
+  })
+
+  const changeEventHandler = (e) =>{
+    const {name, value} = e.target;
+    setInput({...input, [name]:value});
+  }
+
+  const isPublished = true;
 
   return (
     <Card>
@@ -39,6 +54,8 @@ export const CourseTab = () => {
                     type='text'
                     placeholder="Add Title Here"
                     name = "courseTitle"
+                    value={input.courseTitle}
+                    onChange={changeEventHandler}
                 />
             </div>
             <div>
@@ -51,7 +68,7 @@ export const CourseTab = () => {
             </div>
             <div>
                 <Label>Description</Label>
-                <RichTextEditor/>
+                <RichTextEditor input={input} setInput={setInput}/>
             </div>
         </div>
       </CardContent>
