@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 
 
 export const RichTextEditor = ({input, setInput}) => {
@@ -9,6 +9,6 @@ export const RichTextEditor = ({input, setInput}) => {
         setInput({...input, description:content});
     }
 
-    return <ReactQuill theme="snow" value={input.description} onChange={handleChange} />;
+    return <textarea className='w-max' theme="snow" value={input.description} onChange={handleChange} />;
    
 }
