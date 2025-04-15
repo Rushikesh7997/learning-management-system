@@ -58,6 +58,10 @@ export const CourseTab = () => {
     }
   }
 
+  const updateCourseHandler = () =>{
+    console.log(input)
+  }
+
   const isPublished = true;
   const isLoading = false;
 
@@ -173,7 +177,7 @@ export const CourseTab = () => {
           </div>
           <div>
             <Button onClick={()=>navigate("/admin/course")} variant="outline" className="">Cancel</Button>
-            <Button disabled={isLoading}>
+            <Button disabled={isLoading} onClick={updateCourseHandler}>
                 { isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
