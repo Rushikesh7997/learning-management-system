@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEditCourseMutation } from "@/features/api/courseApi";
+import { useEditCourseMutation, useGetCourseByIdQuery } from "@/features/api/courseApi";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,10 +34,29 @@ export const CourseTab = () => {
     coursePrice: "",
     courseThumbnail: "",
   });
-  const [previewThumbnail, setPreviewThumbnail] = useState("")
-  const navigate = useNavigate();
+
   const params = useParams();
   const courseId = params.courseId;
+
+  const {data:courseByIdData, isLoading:courseByIdLoading} = useGetCourseByIdQuery(courseId);
+  const course = courseByIdData?.course;
+  useEffect(()=>{
+    if(course){
+      setInput({
+        courseTitle: course.courseTitle,
+        subTitle: course.subTitle,
+        // description: course.description || "",
+        category: course.category,
+        courseLevel: course.courseLevel,
+        coursePrice: course.coursePrice,
+        courseThumbnail: "",
+      })
+    }
+  },[course])
+  
+
+  const [previewThumbnail, setPreviewThumbnail] = useState("")
+  const navigate = useNavigate();
 
   const [editCourse, {data, isLoading, isSuccess, error}] = useEditCourseMutation();
 
@@ -126,7 +145,7 @@ export const CourseTab = () => {
             />
           </div>
           <div>
-            <Label>Description</Label>
+            <Label>Description</Label>  
             <RichTextEditor input={input} setInput={setInput} />
           </div>
           <div className="flex items-center gap-5">
