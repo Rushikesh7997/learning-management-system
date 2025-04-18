@@ -3,21 +3,30 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useCreateLectureMutation } from '@/features/api/courseApi'
 import { Loader2 } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export const CreateLecture = () => {
     const [lectureTitle, setLectureTitle] = useState("")
     const params = useParams();
     const courseId = params.courseId;
-    const isLoading = false;
     const navigate = useNavigate();
 
-    const [createLecture] = useCreateLectureMutation() 
+    const [createLecture,{data, isLoading, isSuccess, error}] = useCreateLectureMutation() 
 
     const createLectureHandler = async () => {
         await createLecture({lectureTitle, courseId});
     }
+
+    useEffect(()=>{
+        if(isSuccess){
+            toast.success(data.message);
+        }
+        if(error){
+            toast.error(error.data.message);
+        }
+    }, [isSuccess, error])
 
   return (
     <div className="flex-1 mx-10">
