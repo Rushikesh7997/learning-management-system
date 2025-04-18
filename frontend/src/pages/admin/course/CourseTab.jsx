@@ -38,7 +38,7 @@ export const CourseTab = () => {
   const params = useParams();
   const courseId = params.courseId;
 
-  const {data:courseByIdData, isLoading:courseByIdLoading} = useGetCourseByIdQuery(courseId,{refetchOnMountOrArgChange:true});
+  const {data:courseByIdData, isLoading:courseByIdLoading} = useGetCourseByIdQuery(courseId);
   useEffect(()=>{
     if(courseByIdData?.course){
       const course = courseByIdData?.course;
