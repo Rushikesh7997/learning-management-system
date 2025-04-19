@@ -23,7 +23,7 @@ export const createCourse = async (req, res) =>{
         })
     } catch (error) {
         console.log(error)
-        return res.this.status(500).json({
+        return res.status(500).json({
             message: "Failed to create course"
         })
     }
@@ -43,7 +43,7 @@ export const getCreatorCourses = async (req, res) =>{
         })
     } catch (error) {
         console.log(error)
-        return res.this.status(500).json({
+        return res.status(500).json({
             message: "Failed to create course"
         })
     }
@@ -83,7 +83,7 @@ export const editCourse = async (req, res) =>{
 
     } catch (error) {
         console.log(error)
-        return res.this.status(500).json({
+        return res.status(500).json({
             message: "Failed to create course"
         })
     }
@@ -103,7 +103,7 @@ export const getCourseById = async (req, res)=>{
         })
     } catch (error) {
         console.log(error)
-        return res.this.status(500).json({
+        return res.status(500).json({
             message: "Failed to get course by id"
         })
     }
@@ -135,8 +135,29 @@ export const createLecture = async (req,res) =>{
 
     } catch (error) {
         console.log(error)
-        return res.this.status(500).json({
+        return res.status(500).json({
             message: "Failed to Create Lecture"
+        })
+    }
+}
+
+export const getCourseLecture = async (req, res) =>{
+    try {
+        const {courseId} = req.params;
+        const course = await Course.findById(courseId).populate("lectures");
+        if(!course){
+            return res.status(404).json({
+                message:"Course not found"
+            })
+        }
+        return res.status(200).json({
+            lectures:course.lectures
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "Failed to get Lecture"
         })
     }
 }
