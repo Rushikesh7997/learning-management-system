@@ -59,7 +59,13 @@ export const courseApi = createApi({
                 method:"POST",
                 body:{lectureTitle, videoInfo, isPreviewFree}
             })
-        })
+        }),
+        removeLecture:builder.query({
+            query:(lectureId)=>({
+                url:`/lecture/${lectureId}`,
+                method:"DELETE",
+            })
+        }),
     })
 })
 
@@ -71,4 +77,5 @@ export const {
     useCreateLectureMutation,
     useGetCourseLectureQuery,
     useEditLectureMutation,
+    useRemoveLectureQuery,
 } = courseApi;
