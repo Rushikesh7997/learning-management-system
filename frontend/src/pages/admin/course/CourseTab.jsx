@@ -95,6 +95,10 @@ export const CourseTab = () => {
     await editCourse({formData, courseId});
   }
 
+  const publishStatusHandler = () =>{
+
+  }
+
   useEffect(()=>{
     if(isSuccess){
       toast.success(data.message || "Course Update")
@@ -106,7 +110,6 @@ export const CourseTab = () => {
 
   if(courseByIdLoading) return <Loader2 className="h-4 w-4 animate-spin"/>
 
-  const isPublished = true;
 
   return (
     <Card>
@@ -118,8 +121,8 @@ export const CourseTab = () => {
           </CardDescription>
         </div>
         <div className="space-x-2">
-          <Button variant="outline">
-            {isPublished ? "Unpublished" : "Published"}
+          <Button variant="outline" onClick={()=>publishStatusHandler(courseByIdData?.course.isPublished ? "false" : "true")}>
+            {courseByIdData?.course.isPublished ? "Unpublished" : "Published"}
           </Button>
           <Button>Remove Course</Button>
         </div>
