@@ -48,6 +48,7 @@ export const CourseDetails = () => {
                 <div className='w-full aspect-video mb-4'>
                   fetch video 
                 </div>
+                <h1>Lecture Title</h1>
               </CardContent>
             </Card>       
         </div>
