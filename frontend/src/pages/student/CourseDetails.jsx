@@ -1,4 +1,5 @@
-import { BadgeInfo } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { BadgeInfo, Lock, PlayCircle } from 'lucide-react'
 import React from 'react'
 
 export const CourseDetails = () => {
@@ -17,8 +18,38 @@ export const CourseDetails = () => {
         </div>
       </div>
       <div className='max-w-7xl mx-auto my-5 px-4 md:px-8 flex flex-col lg:flex-row justify-between gap-10 '>
-        <div className='w-full lg:w-1/2 space-'>
-            
+        <div className='w-full lg:w-1/2 space-y-5'>
+            <h1 className='font-bold text-xl md:text-2xl'>Description</h1>
+            <p className='text-justify text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita doloremque repellat harum nesciunt quaerat autem minima iure rem laudantium natus! Tempore distinctio assumenda doloribus voluptatibus ea, illo eligendi qui excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga ut dolorem doloremque vero harum doloribus molestiae nesciunt quaerat maxime atque adipisci perferendis fugit quae totam, voluptatum, magnam mollitia, praesentium vel.</p>
+            <Card>
+              <CardHeader>
+                <CardTitle>Course Content</CardTitle>
+                <CardDescription>4 Lectures</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 ">
+                {
+                  [1, 2, 3].map((_, idx)=>(
+                    <div key={idx} className='flex items-center gap-3 text-sm'>
+                      <span>
+                        {
+                          true ? (<PlayCircle size={16}/>) : <Lock size={16}/>
+                        }
+                      </span>
+                      <p>Lecture Title</p>
+                    </div>
+                  ))
+                }
+              </CardContent>
+            </Card>
+        </div>
+        <div className='w-full lg:w-1/3'>
+            <Card>
+              <CardContent className="p-4 flex flex-col ">
+                <div className='w-full aspect-video mb-4'>
+                  fetch video 
+                </div>
+              </CardContent>
+            </Card>       
         </div>
       </div>
     </div>
