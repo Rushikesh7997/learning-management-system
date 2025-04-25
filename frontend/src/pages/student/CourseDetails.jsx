@@ -1,8 +1,12 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { BuyCourseButton } from '@/components/BuyCourseButton'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { BadgeInfo, Lock, PlayCircle } from 'lucide-react'
 import React from 'react'
 
 export const CourseDetails = () => {
+  const purchasedCourse = true;
   return (
     <div className='mt-20 space-y-5'>
       <div className='bg-[#2D2F31] text-white'>
@@ -46,10 +50,21 @@ export const CourseDetails = () => {
             <Card>
               <CardContent className="p-4 flex flex-col ">
                 <div className='w-full aspect-video mb-4'>
-                  fetch video 
+                  fetch video
                 </div>
                 <h1>Lecture Title</h1>
+                <Separator className="my-2"/>
+                <h1 className='text-xl font-semibold md:text-lg'>Course Price</h1>
               </CardContent>
+              <CardFooter className="flex justify-center p-4">
+                {
+                  purchasedCourse ? (
+                    <Button className="w-full">Continue Course</Button>
+                  ) : (
+                    <BuyCourseButton/>
+                  )
+                }
+              </CardFooter>
             </Card>       
         </div>
       </div>
