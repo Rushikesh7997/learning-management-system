@@ -42,7 +42,6 @@ export const Navbar = () => {
     await logoutUser();
   }
 
-
   useEffect(()=>{
     if(isSuccess){
       toast.success(data.message || "User is log out");
